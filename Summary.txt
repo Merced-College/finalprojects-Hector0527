@@ -1,9 +1,0 @@
-    I am building a terminal based calorie tracker and meal planning app using Java. The app will allow users to enter their.
-personal info name, age, weight, and height . Then based of this calculate their daily calorie needs using the Mifflin-St Jeor formula.
-This apps features is designed to help the users maintain, lose, or gain weight. Eventually i will support logging meals, tracking calorie,
-and suggesting meal plans soon
-
-    So far i have created a User class here it stores ser data and coverts to imperial units to metric for calculation.
-calculateCalories() method that determines daily calorie needs based on gender and age. Also written is the main program flow to collect
-user input and display calorie target. What I pla in implenting is meal traking using queues and arrays, add recursive method for calculating 
-totals and build a simple interface for the app.                                           .

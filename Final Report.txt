@@ -1,0 +1,152 @@
+Hector Valenzuela
+05.16.2025
+Final Project Report for Calorie Tracker & Meal Planning App 
+FITTRACK
+
+Abstract:
+
+The Calorie Tracker & Meal Planning App is a 
+terminal-based Java application designed to help users manage their 
+nutrition and achieve their health goals. The app calculates a 
+personalized daily calorie target based on the user's physiological 
+characteristics and activity level, then provides tools to track 
+food intake and plan meals accordingly.       
+
+Features:
+
+1.User profile creation with personalized calorie calculation
+2.Food database with common food items and calorie values
+3.Meal logging and tracking functionality
+4.Daily food log with calorie summaries
+5.Meal plan generation based on calorie goals
+6.Data persistence through file save/load
+
+Data Structures Used
+1. LinkedList
+
+Usage: Implemented as a queue-like structure for the food log
+Rationale: The chronological nature of meal logging makes a 
+queue an appropriate structure. A LinkedList was chosen because
+it offers efficient O(1) insertion at the end, which is the 
+primary operation when logging meals.
+Implementation: The User class maintains a LinkedList<FoodItem> 
+to store all food items consumed.
+
+2. HashMap
+
+Usage: Implemented to store the food database
+Rationale: Fast O(1) lookups by food name are essential for 
+quick meal logging. HashMap provides the optimal structure 
+
+Implementation: The Main class contains a static HashMap<String,
+Integer> that maps food names to their calorie values.
+
+3. ArrayList
+
+Usage: 
+
+Used for temporary storage of meal suggestions
+Rationale: ArrayLists provide dynamic sizing and easy 
+access to elements, making them suitable for collecting 
+and displaying a variable number of food suggestions.
+Implementation: In the suggestFoodsForMeal method, 
+an ArrayList<String> stores the food suggestions before 
+formatting them for display.
+
+Algorithms and Big O Analysis
+
+1. Calorie Calculation Algorithm
+calculateCalories():
+    // Calculate BMR using Mifflin-St Jeor formula
+    if gender is male:
+        bmr = 10 * weightKg + 6.25 * heightCm - 5 * age + 5
+    else:
+        bmr = 10 * weightKg + 6.25 * heightCm - 5 * age - 161
+    
+    // Apply activity factor
+    activityFactor = getActivityFactor()
+    tdee = bmr * activityFactor
+    
+    // Adjust for goal
+    if goal is "lose":
+        return tdee * 0.8
+    else if goal is "gain":
+        return tdee * 1.15
+    else:
+        return tdee
+Time Complexity: O(1) - The calculation performs a 
+fixed number of operations regardless of input size.
+
+2. Recursive Calorie Totaling Algorithm
+calculateTotalCalories(foodLog, index, total):
+    // Base case
+    if index >= foodLog.size():
+        return total
+    
+    // Recursive step
+    total += foodLog.get(index).getCalories()
+    return calculateTotalCalories(foodLog, index + 1, total)
+Time Complexity: O(n) where n is the number of food items in the log. 
+The function makes exactly n recursive calls.
+
+3. Meal Suggestion Algorithm
+suggestFoodsForMeal(targetCalories, mealType):
+    suggestions = new ArrayList()
+    currentCalories = 0
+    
+    for each food in foodDatabase:
+        foodCalories = get calories for food
+        if currentCalories + foodCalories <= targetCalories:
+            add food to suggestions
+            currentCalories += foodCalories
+            
+            if currentCalories >= targetCalories * 0.85:
+                break
+    
+    display suggestions
+
+Design and Development Process
+
+Step 1: User Requirements Analysis
+I began by identifying the core functionality needed for a calorie tracking app:
+
+User profile management
+Calorie calculation based on scientific formulas
+Food logging
+Daily calorie tracking
+Meal planning
+
+Step 2: Data Structure Selection
+I encountered an opportunity when deciding how to store food logs. Initially, 
+I considered using a simple array, but realized that a LinkedList would provide 
+better performance for the frequent append operations. This allowed for O(1) 
+insertion time when adding new food items.
+
+Step 3: Algorithm Development
+When developing the calorie calculation algorithm, I faced a challenge in accurately 
+representing different activity levels. I solved this by implementing a getActivityFactor() 
+method that maps descriptive activity levels to scientific multipliers, making the app more 
+user-friendly while maintaining accuracy.
+Step 4: Recursive Implementation
+I saw an opportunity to showcase algorithm design by implementing 
+a  recursive method for calculating total calories. This was both 
+educationally valuable and demonstrated a clean approach to iterating through collections.
+
+Step 5: User Interface Design
+A significant challenge was creating a usable interface within the constraints 
+of a terminal application. I addressed this by implementing a clear menu 
+system with numbered options and consistent formatting throughout the app.
+Future Improvements
+
+For the next version of the Calorie Tracker app, I would like to add:
+
+Macronutrient tracking (protein, carbs, fat)
+Historical data analysis and graphing
+More sophisticated meal planning with balanced nutrition
+User authentication system
+Database integration for more persistent storage
+
+Conclusion:
+
+The Calorie Tracker & Meal Planning App successfully implements multiple data structures and algorithms to create a useful tool for nutritional management. The app demonstrates proper use of object-oriented programming principles, efficient data structure selection, and clear algorithm implementation.
+The primary strength of the application is its balance between simplicity of use and computational efficiency, achieving O(1) or O(n) time complexity for all major operations.
